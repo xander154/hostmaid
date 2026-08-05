@@ -1,0 +1,76 @@
+name: Deploy Marketing Site
+
+on:
+  push:
+    branches: [main, staging]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    name: Deploy to S3 + CloudFront
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set environment
+        id: env
+        run: |
+          # Only staging marketing infra exists today; both main and staging deploy there.
+          echo "ENV_NAME=staging" >> $GITHUB_OUTPUT
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_MARKETING_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Resolve stack outputs
+        id: stack
+        run: |
+          STACK="Hostmaid-$(echo ${{ steps.env.outputs.ENV_NAME }} | awk '{print toupper(substr($0,1,1)) substr($0,2)}')-MarketingFrontend"
+          BUCKET=$(aws cloudformation describe-stacks \
+            --stack-name "$STACK" \
+            --query "Stacks[0].Outputs[?OutputKey=='MarketingBucketName'].OutputValue" \
+            --output text)
+          DIST_ID=$(aws cloudformation describe-stacks \
+            --stack-name "$STACK" \
+            --query "Stacks[0].Outputs[?OutputKey=='MarketingDistributionId'].OutputValue" \
+            --output text)
+          echo "BUCKET=$BUCKET" >> $GITHUB_OUTPUT
+          echo "DIST_ID=$DIST_ID" >> $GITHUB_OUTPUT
+
+      - name: Sync static site to S3
+        run: |
+          aws s3 sync . "s3://${{ steps.stack.outputs.BUCKET }}" \
+            --delete \
+            --exclude '.git/*' \
+            --exclude '.github/*' \
+            --exclude '.DS_Store' \
+            --exclude 'hostmaid-website-content.md' \
+            --exclude 'README.md' \
+            --cache-control 'public,max-age=31536000,immutable' \
+            --exclude 'index.html' \
+            --exclude 'styles.css'
+
+          # HTML/CSS: short cache so deploys show up quickly after invalidation
+          aws s3 cp index.html "s3://${{ steps.stack.outputs.BUCKET }}/index.html" \
+            --cache-control 'public,max-age=60,must-revalidate' \
+            --content-type 'text/html'
+          aws s3 cp styles.css "s3://${{ steps.stack.outputs.BUCKET }}/styles.css" \
+            --cache-control 'public,max-age=300,must-revalidate' \
+            --content-type 'text/css'
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ steps.stack.outputs.DIST_ID }}" \
+            --paths '/*'

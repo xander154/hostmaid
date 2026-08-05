@@ -11,7 +11,7 @@ HostMaid
 How it works | Who it's for | Pricing | FAQ
 
 **Primary CTA:** Book a demo (scrolls to the demo booking section)
-**Secondary CTA:** Start a free trial (links to `https://dev.hostmaid.com/login`)
+**Secondary CTA:** Start a free trial (links to `https://app.staging.hostmaid.com/login`)
 
 ---
 
@@ -325,6 +325,6 @@ How it works | Who it's for | Pricing | FAQ
 
 ## Notes on links
 
-- All "Start a free trial" buttons across the site link to `https://dev.hostmaid.com/login`.
+- All "Start a free trial" buttons across the site link to `https://app.staging.hostmaid.com/login`.
 - All "Book a demo" buttons anchor to the in-page demo booking sections (`#demo` near the top, `#demo-close` near the bottom).
 - The two booking calendar spots and the contact email are still placeholders, not live yet.
