@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MM2MGMRR');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HostMaid - Short-Term Rental Turnover Management Software</title>
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Fallback font stack in case Google Fonts fails to load offline */
+  body {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ===== Keyframe animations (copied verbatim from Landing.pretty.js) ===== */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes floatPhone {
+    0%, 100% { transform: rotate(8deg) translateY(0px); }
+    50% { transform: rotate(8deg) translateY(-10px); }
+  }
+  @keyframes floatNotif {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-6px) translateX(2px); }
+  }
+
+  /* Simple fade/slide-in used across sections on scroll-into-view (replaces React IntersectionObserver state) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .reveal.reveal-left { transform: translateX(-40px); }
+  .reveal.reveal-right { transform: translateX(40px); }
+  .reveal.reveal-visible {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+
+  /* Hero load-in animation (simplified from the React timed sequence) */
+  .hero-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+  .hero-fade.hero-fade-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* FAQ accordion (max-height bumped up from the original 16rem so two-paragraph answers don't clip) */
+  .faq-answer {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.35s ease-out;
+  }
+  .faq-answer.faq-open {
+    max-height: 40rem;
+    opacity: 1;
+  }
+  .faq-icon {
+    transition: transform 0.3s ease-out;
+  }
+  .faq-icon.faq-open {
+    transform: rotate(180deg);
+  }
+
+  /* A few small utilities the compiled Tailwind build doesn't include */
+  .aspect-square-box { aspect-ratio: 1 / 1; }
+  .bg-muted-wash { background-color: #F8FAFC; }
+  .max-w-4xl { max-width: 56rem; }
+  .mt-auto { margin-top: auto; }
+  .space-y-20 > * + * { margin-top: 5rem; }
+  .italic { font-style: italic; }
+</style>
+</head>
+<body class="bg-white">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM2MGMRR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- ================= Navbar ================= -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent border-b border-transparent py-4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="#top" class="flex items-center gap-2">
+        <img src="assets/light/images/hostmaid.svg" alt="HostMaid" class="h-8 brightness-0 invert transition-all duration-300">
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#how-it-works" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">How it works</a>
+        <a href="#who-its-for" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">Who it's for</a>
+        <a href="#pricing" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">Pricing</a>
+        <a href="#faq" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">FAQ</a>
+      </div>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://dev.hostmaid.com/login" class="px-5 py-2 text-sm font-semibold text-white hover:text-[#4FB5C8] transition-colors">Start a free trial</a>
+        <a href="#demo" class="px-5 py-2 bg-[#4FB5C8] text-white text-sm font-semibold rounded-lg hover:bg-[#3da1b3] shadow-md hover:shadow-lg transition-all">Book a demo</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-white" aria-label="Toggle menu">
+        <!-- Menu icon (shown when closed) -->
+        <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <!-- X icon (shown when open) -->
+        <svg id="icon-x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden bg-[#0F172A] border-t border-white/10 shadow-xl absolute top-full left-0 right-0 hidden">
+    <div class="px-4 py-4 space-y-3">
+      <a href="#how-it-works" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">How it works</a>
+      <a href="#who-its-for" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">Who it's for</a>
+      <a href="#pricing" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">Pricing</a>
+      <a href="#faq" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">FAQ</a>
+      <div class="pt-3 border-t border-white/10 space-y-2">
+        <a href="https://dev.hostmaid.com/login" class="block text-center px-5 py-2.5 text-sm font-semibold text-white border border-white/20 rounded-lg hover:bg-white/5">Start a free trial</a>
+        <a href="#demo" class="block text-center px-5 py-2.5 bg-[#4FB5C8] text-white text-sm font-semibold rounded-lg">Book a demo</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= Hero ================= -->
+<header id="top" class="relative min-h-screen flex items-center overflow-hidden pt-16" style="background-image:url('assets/hero-bg.jpg'); background-size:cover; background-position:center;">
+  <div class="absolute inset-0 bg-gradient-to-r from-[#0F172A] via-[#0F172A]/95 to-transparent z-0 w-[85%]"></div>
+  <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-[#4FB5C8]/10 rounded-full blur-3xl -z-10"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#4FB5C8]/5 rounded-full blur-3xl -z-10"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="max-w-xl">
+        <p class="hero-fade text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-4">STR turnover management software</p>
+        <h1 class="hero-fade text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-white leading-tight mb-6" style="transition-delay:0.15s;">
+          Stop finding out from <span class="text-[#4FB5C8]">the guest</span>.
+        </h1>
+        <div class="hero-fade text-lg text-gray-300 mb-8 leading-relaxed space-y-4" style="transition-delay:0.3s;">
+          <p>HostMaid puts the check before check-in. Every turnover runs room by room, with required photos, quality control and certified cleaners ready to step in if a job is left unfinished. Nothing's marked complete until the process is finished.</p>
+        </div>
+        <div class="hero-fade flex flex-wrap gap-4 mb-4" style="transition-delay:0.45s;">
+          <a href="#demo" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl hover:shadow-[#4FB5C8]/30 hover:scale-[1.03] active:scale-[0.98] transition-all">
+            Book a demo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="https://dev.hostmaid.com/login" class="inline-flex items-center gap-2 px-7 py-3.5 bg-white/5 text-white font-semibold rounded-xl border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-white/20 hover:scale-[1.03] active:scale-[0.98] transition-all">
+            Start a free trial
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating phone mockup + QC review card -->
+      <div class="hero-fade relative hidden lg:block" style="transition:all 0.8s ease-out 0.5s;">
+        <div class="absolute -top-10 -right-44 w-56 rounded-[44px] shadow-2xl overflow-hidden" style="animation:floatPhone 5s ease-in-out infinite; z-index:20; aspect-ratio:9/19.5; background:#111; border:10px solid #1a1a1a; box-shadow:0 0 0 1px #333, 0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px #444; transform:rotate(8deg);">
+          <div class="absolute top-2 left-1/2 -translate-x-1/2 z-50 rounded-full bg-black" style="width:80px; height:24px;"></div>
+          <img src="assets/landing/Dashboard.png" alt="HostMaid mobile app" class="w-full h-full object-cover object-top">
+        </div>
+
+        <div class="relative">
+          <div class="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100" style="animation:float 6s ease-in-out infinite 0.3s;">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <p class="text-xs text-[#718096] mb-1">Quality control</p>
+                <h3 class="text-lg font-bold text-[#222B45]">Pre-Check-In Review</h3>
+              </div>
+              <div class="w-10 h-10 bg-[#4FB5C8]/10 rounded-lg flex items-center justify-center">
+                <img src="assets/light/images/hostmaid_icon.svg" alt="" class="w-6 h-6">
+              </div>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 bg-gray-50/80 rounded-lg hover:bg-gray-100/80 transition-colors cursor-default">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color:#34c38f33;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34c38f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-[#222B45]">Kitchen checklist</p>
+                    <p class="text-xs text-[#718096]">12 required photos, verified</p>
+                  </div>
+                </div>
+                <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background-color:#34c38f15; color:#34c38f;">Passed</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50/80 rounded-lg hover:bg-gray-100/80 transition-colors cursor-default">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-[#F59E0B]" style="background-color:#F59E0B33;">!</div>
+                  <div>
+                    <p class="text-sm font-medium text-[#222B45]">Primary bathroom</p>
+                    <p class="text-xs text-[#718096]">Missed item flagged</p>
+                  </div>
+                </div>
+                <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background-color:#F59E0B15; color:#F59E0B;">Sent back</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50/80 rounded-lg hover:bg-gray-100/80 transition-colors cursor-default">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-[#4FB5C8]/20 flex items-center justify-center text-xs font-bold text-[#4FB5C8]">02</div>
+                  <div>
+                    <p class="text-sm font-medium text-[#222B45]">Living room</p>
+                    <p class="text-xs text-[#718096]">Awaiting required photo</p>
+                  </div>
+                </div>
+                <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background-color:#4FB5C815; color:#4FB5C8;">In progress</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute -bottom-4 -left-8 bg-white rounded-xl shadow-xl p-4 border border-gray-100 w-56" style="animation:floatNotif 4s ease-in-out 2.5s infinite;">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-[#34c38f]/10 rounded-full flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#34c38f]"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#222B45]">QC Approved!</p>
+                <p class="text-[10px] text-[#718096]">Apt 4B - Just now</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ================= Book your HostMaid demo ================= -->
+<section id="demo" class="py-24 bg-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="reveal text-center mb-10">
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">Book a demo</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#222B45] mb-4">Book your HostMaid demo</h2>
+      <p class="text-[#505a6e] text-lg max-w-2xl mx-auto">See how HostMaid would work across your properties, checklists and cleaning team.</p>
+    </div>
+    <div class="reveal rounded-2xl overflow-hidden">
+      <!-- Calendly inline widget begin -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/ben-capuletcleaning/30min" style="min-width:320px;height:700px;"></div>
+      <!-- Calendly inline widget end -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= The moment it goes wrong ================= -->
+<section class="py-24 bg-[#0F172A] overflow-hidden">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="reveal text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">The moment it goes wrong</p>
+    <div class="reveal flex items-center gap-3 mb-6">
+      <span class="text-sm font-semibold text-gray-400">3:40 PM</span>
+      <span class="flex-1 h-px bg-white/10"></span>
+      <span class="text-sm font-semibold text-gray-400">Check-in 4:00 PM</span>
+    </div>
+    <h2 class="reveal text-3xl sm:text-4xl font-bold text-white mb-8 leading-tight">It's 3:40pm. The guest has the door code. You have no idea what they're about to walk into.</h2>
+    <div class="reveal space-y-5 text-gray-300 text-lg leading-relaxed">
+      <p>The clean might have gone fine.</p>
+      <p>There might be hair behind the bathroom door. Fingerprints on the mirror. A coffee maker nobody wiped down, or a trash can still tucked under the sink.</p>
+      <p>You'll find out in twenty minutes, when your phone lights up.</p>
+      <p>By then it's a complaint. Then a reclean, a refund, or a negative review sitting on the listing.</p>
+      <p>You can refund a guest. You can't unpublish a negative review, and Airbnb's algorithm doesn't forget it either. A run of bad reviews drops you down the rankings, and that costs you bookings you never find out you lost.</p>
+      <p>HostMaid moves that moment forward. The checklist, the photos and the review all happen before check-in, while there's still time to do something about what was missed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Six steps between "assigned" and "done" ================= -->
+<section id="how-it-works" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="reveal max-w-3xl mb-20">
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">How HostMaid works</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#222B45] mb-4">Six steps between "assigned" and "done"</h2>
+      <p class="text-[#505a6e] text-lg">HostMaid does more than schedule a clean. It puts your standard into the job, checks the evidence, and keeps the turnover open until the work has made it through the process.</p>
+    </div>
+
+    <div class="space-y-20">
+
+      <!-- Step 1 -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal reveal-left">
+          <span class="inline-block text-sm font-bold text-[#4FB5C8] mb-3">01</span>
+          <h3 class="text-2xl font-bold text-[#222B45] mb-4">Your standard, in their hands</h3>
+          <p class="text-lg text-[#505a6e] leading-relaxed mb-3">Build a checklist for each property, room by room.</p>
+          <p class="text-lg text-[#505a6e] leading-relaxed">The right number of towels. The owner's closet code. The coffee station. The kayaks that need to go back in the garage. Property quirks stop living in one person's head.</p>
+        </div>
+        <div class="reveal reveal-right relative flex items-center justify-center" style="height:420px;">
+          <div class="w-56 rounded-[44px] shadow-2xl overflow-hidden" style="aspect-ratio:9/19.5; background:#111; border:10px solid #1a1a1a; box-shadow:0 0 0 1px #333, 0 20px 45px rgba(0,0,0,0.25), inset 0 0 0 1px #444;">
+            <div class="relative w-full h-full">
+              <div class="absolute top-2 left-1/2 -translate-x-1/2 z-10 rounded-full bg-black" style="width:70px; height:20px;"></div>
+              <img src="assets/landing/rooms-details.png" alt="Property setup checklist, room by room" class="w-full h-full object-cover object-top">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal reveal-left lg:order-2">
+          <span class="inline-block text-sm font-bold text-[#4FB5C8] mb-3">02</span>
+          <h3 class="text-2xl font-bold text-[#222B45] mb-4">Photos it can't fake</h3>
+          <p class="text-lg text-[#505a6e] leading-relaxed mb-3">The app randomly chooses which checklist items need a photo, and it chooses at the time.</p>
+          <p class="text-lg text-[#505a6e] leading-relaxed">The cleaner takes the photo in the app as they work through the property. Nobody's uploading last week's kitchen.</p>
+        </div>
+        <div class="reveal reveal-right lg:order-1 bg-white rounded-2xl shadow-xl p-5 border border-gray-100">
+          <img src="assets/landing/rooms-photos.png" alt="Required photos submitted for each room" class="w-full rounded-xl object-cover">
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal reveal-left">
+          <span class="inline-block text-sm font-bold text-[#4FB5C8] mb-3">03</span>
+          <h3 class="text-2xl font-bold text-[#222B45] mb-4">The job gets picked up</h3>
+          <p class="text-lg text-[#505a6e] leading-relaxed mb-3">If a cleaner leaves a property half done, HostMaid offers the remaining work straight away to your certified, company-approved cleaners, with the pay showing on screen. These are cleaners who have already proved they can hold your standard.</p>
+          <p class="text-lg text-[#222B45] font-semibold">The system chases the work, not you.</p>
+        </div>
+        <div class="reveal reveal-right relative flex items-center justify-center" style="height:420px;">
+          <div class="w-56 rounded-[44px] shadow-2xl overflow-hidden" style="aspect-ratio:9/19.5; background:#111; border:10px solid #1a1a1a; box-shadow:0 0 0 1px #333, 0 20px 45px rgba(0,0,0,0.25), inset 0 0 0 1px #444;">
+            <div class="relative w-full h-full">
+              <div class="absolute top-2 left-1/2 -translate-x-1/2 z-10 rounded-full bg-black" style="width:70px; height:20px;"></div>
+              <img src="assets/landing/map.png" alt="Callback offer on a cleaner's phone, with pay showing" class="w-full h-full object-cover object-top">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal reveal-left lg:order-2">
+          <span class="inline-block text-sm font-bold text-[#4FB5C8] mb-3">04</span>
+          <h3 class="text-2xl font-bold text-[#222B45] mb-4">Checked before it counts</h3>
+          <p class="text-lg text-[#505a6e] leading-relaxed mb-3">Finishing the checklist doesn't close the job.</p>
+          <p class="text-lg text-[#505a6e] leading-relaxed">Someone reviews the work first. If something was missed, it goes back while there's still time to correct it.</p>
+        </div>
+        <div class="reveal reveal-right lg:order-1 relative flex items-center justify-center" style="height:420px;">
+          <div class="w-56 rounded-[44px] shadow-2xl overflow-hidden" style="aspect-ratio:9/19.5; background:#111; border:10px solid #1a1a1a; box-shadow:0 0 0 1px #333, 0 20px 45px rgba(0,0,0,0.25), inset 0 0 0 1px #444;">
+            <div class="relative w-full h-full">
+              <div class="absolute top-2 left-1/2 -translate-x-1/2 z-10 rounded-full bg-black" style="width:70px; height:20px;"></div>
+              <img src="assets/landing/Checklist.png" alt="Quality controller review of a room, before the job closes" class="w-full h-full object-cover object-top">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal reveal-left">
+          <span class="inline-block text-sm font-bold text-[#4FB5C8] mb-3">05</span>
+          <h3 class="text-2xl font-bold text-[#222B45] mb-4">Receipts for every room</h3>
+          <p class="text-lg text-[#505a6e] leading-relaxed mb-3">Every clean is dated and documented.</p>
+          <p class="text-lg text-[#505a6e] leading-relaxed">When an owner, a client or a guest asks what happened, you've got a room-by-room record.</p>
+        </div>
+        <div class="reveal reveal-right relative flex items-center justify-center" style="height:420px;">
+          <div class="w-56 rounded-[44px] shadow-2xl overflow-hidden" style="aspect-ratio:9/19.5; background:#111; border:10px solid #1a1a1a; box-shadow:0 0 0 1px #333, 0 20px 45px rgba(0,0,0,0.25), inset 0 0 0 1px #444;">
+            <div class="relative w-full h-full">
+              <div class="absolute top-2 left-1/2 -translate-x-1/2 z-10 rounded-full bg-black" style="width:70px; height:20px;"></div>
+              <img src="assets/landing/Dashboard.png" alt="Dated, room-by-room turnover record" class="w-full h-full object-contain object-top">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal reveal-left lg:order-2">
+          <span class="inline-block text-sm font-bold text-[#4FB5C8] mb-3">06</span>
+          <h3 class="text-2xl font-bold text-[#222B45] mb-4">Done means done</h3>
+          <p class="text-lg text-[#505a6e] leading-relaxed mb-3">The checklist is complete. The required photos are there. The work has been checked. Anything that was missed has been dealt with.</p>
+          <p class="text-lg text-[#222B45] font-semibold">Now the turnover's done.</p>
+        </div>
+        <div class="reveal reveal-right lg:order-1 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+          <div class="px-6 py-4 flex items-center justify-between" style="background-color:#222B45;">
+            <div>
+              <p class="text-white font-bold text-base">Prisma Residences</p>
+              <p class="text-gray-400 text-xs mt-0.5">Turnover · Jul 16, 5:15 PM</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style="background-color:#34c38f22; color:#34c38f;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Completed
+            </span>
+          </div>
+          <div class="p-6 space-y-3">
+            <div class="flex items-center justify-between p-3 bg-gray-50/80 rounded-lg">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color:#34c38f33;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34c38f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-[#222B45]">Checklist</p>
+                  <p class="text-xs text-[#718096]">6 of 6 rooms checked</p>
+                </div>
+              </div>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background-color:#34c38f15; color:#34c38f;">Passed</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-50/80 rounded-lg">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color:#34c38f33;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34c38f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-[#222B45]">Required photos</p>
+                  <p class="text-xs text-[#718096]">18 submitted, all verified</p>
+                </div>
+              </div>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background-color:#34c38f15; color:#34c38f;">Verified</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-50/80 rounded-lg">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#4FB5C8]/20 flex items-center justify-center text-xs font-bold text-[#4FB5C8]">QC</div>
+                <div>
+                  <p class="text-sm font-medium text-[#222B45]">Quality review</p>
+                  <p class="text-xs text-[#718096]">Checked out 5:52 PM</p>
+                </div>
+              </div>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background-color:#4FB5C815; color:#4FB5C8;">Passed</span>
+            </div>
+            <div class="flex items-center justify-between pt-3 mt-1 border-t border-gray-100">
+              <span class="text-xs text-[#A0AEC0]">Turnover time</span>
+              <span class="text-sm font-bold text-[#222B45]">42 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="reveal flex flex-wrap justify-center gap-4 mt-12">
+      <a href="#demo" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Book a demo</a>
+      <a href="https://dev.hostmaid.com/login" class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#222B45] font-semibold rounded-xl border border-gray-200 hover:border-gray-300 transition-all">Start a free trial</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Who HostMaid is for ================= -->
+<section id="who-its-for" class="py-24 bg-[#F8FAFC]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="reveal max-w-3xl mb-16">
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">Who HostMaid is for</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#222B45] mb-4">The guest finds the same missed trash can, whoever hired the cleaner.</h2>
+      <p class="text-[#505a6e] text-lg">HostMaid works for the people managing the property, the companies cleaning it, and the owners whose name sits on the listing.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Property managers: teal -->
+      <div class="reveal rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden" style="background-color:#4FB5C808;">
+        <div class="p-8 flex flex-col flex-1">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color:#4FB5C81a;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#4FB5C8;">Property managers</p>
+          <h3 class="text-xl font-bold text-[#222B45] mb-4">Know it's ready before your owner does.</h3>
+          <p class="text-base text-[#505a6e] leading-relaxed mb-5">Put your standard on every turnover, whether in-house, an outside cleaning company, or both. Problems reach you while there's still time to send someone back, and when an owner asks what happened, you can show them, with a date on it.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#4FB5C8;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Apply your checklist across every property and cleaning team</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#4FB5C8;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Catch problems before they become guest complaints</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#4FB5C8;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Keep a documented record for every owner conversation</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#4FB5C8;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Get half-finished jobs in front of certified, company-approved cleaners</span>
+            </li>
+          </ul>
+          <a href="#demo" class="mt-auto inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90" style="background-color:#4FB5C8;">Book a demo</a>
+        </div>
+      </div>
+
+      <!-- Cleaning companies: green -->
+      <div class="reveal rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden" style="background-color:#34c38f08;">
+        <div class="p-8 flex flex-col flex-1">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color:#34c38f1a;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34c38f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#34c38f;">Cleaning companies</p>
+          <h3 class="text-xl font-bold text-[#222B45] mb-4">Prove the job was done, every time.</h3>
+          <p class="text-base text-[#505a6e] leading-relaxed mb-5">A refund shouldn't come off your invoice because nobody can find the photos. HostMaid gives your team a process they can follow and a record you can stand behind, so quality holds as you add cleaners and consistent work earns you referrals.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#34c38f;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Protect your team as well as your client</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#34c38f;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Show the standard you deliver instead of dropping your price</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#34c38f;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Keep property instructions and proof in the same place</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#34c38f;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Send unfinished work to your certified callback cleaners without making another round of calls</span>
+            </li>
+          </ul>
+          <a href="#demo" class="mt-auto inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90" style="background-color:#34c38f;">Book a demo</a>
+        </div>
+      </div>
+
+      <!-- Multi-property hosts and investors: amber -->
+      <div class="reveal rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden" style="background-color:#F59E0B08;">
+        <div class="p-8 flex flex-col flex-1">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color:#F59E0B1a;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color:#F59E0B;">Multi-property hosts &amp; investors</p>
+          <h3 class="text-xl font-bold text-[#222B45] mb-4">Know it's ready before your guest tells you it wasn't.</h3>
+          <p class="text-base text-[#505a6e] leading-relaxed mb-5">You shouldn't have to drive over after every clean, or spend the afternoon wondering what kind of day your cleaner had. HostMaid runs your turnovers through the same room-by-room process used by an operation doing thousands of them a year.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#F59E0B;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Dated photos from every turnover</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#F59E0B;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">See what happened without driving to the property</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#F59E0B;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Keep a condition record when something gets damaged</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color:#F59E0B;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-[#505a6e]">Protect the reviews that determine how confidently your next guest books</span>
+            </li>
+          </ul>
+          <a href="#demo" class="mt-auto inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90" style="background-color:#F59E0B;">Book a demo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= Nobody built HostMaid in a boardroom (founder / proof) ================= -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="reveal text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">We needed it first</p>
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="reveal reveal-left lg:col-span-2">
+        <h2 class="text-3xl sm:text-4xl font-bold text-[#222B45] mb-8 leading-tight max-w-xl">Nobody built HostMaid in a boardroom.</h2>
+        <div class="space-y-5 text-[#505a6e] text-lg leading-relaxed">
+          <p>We didn't set out to build software. We set out to clean short-term rentals properly, at volume.</p>
+          <p>Hundreds of turnovers a week teach you something fast. You don't grow by waiting for perfect cleaners. You grow by building a process people can follow, including on a bad day.</p>
+          <p>We tried the apps. They gave our cleaners lists, schedules and somewhere to send photos. We were still driving out to properties to look for ourselves.</p>
+          <p>So we built what we needed, and spent three years changing it every time something went wrong in a real house. A missed coffee station. Hair behind a bathroom door. A cleaner who left halfway through a job.</p>
+          <p>We still run our own cleaning and property management operations on it. Today, we handle hundreds of turnovers a week and thousands a year. When we need to grow, we can add as many as ten units in a week without throwing the management team back into chaos.</p>
+          <p class="text-[#222B45] font-bold italic">Ben Brinneman, Founder</p>
+        </div>
+      </div>
+
+      <div class="reveal reveal-right">
+        <div class="bg-[#222B45] rounded-2xl p-8 text-white">
+          <p class="text-xs font-semibold text-[#4FB5C8] uppercase tracking-wider mb-6">Proof from the operation</p>
+          <div class="space-y-6">
+            <div>
+              <p class="text-2xl font-bold text-white">Hundreds</p>
+              <p class="text-sm text-gray-400 mt-1">of short-term rental turnovers every week</p>
+            </div>
+            <div class="border-t border-white/10 pt-6">
+              <p class="text-2xl font-bold text-white">Six years</p>
+              <p class="text-sm text-gray-400 mt-1">running short-term rental cleaning and property management at volume</p>
+            </div>
+            <div class="border-t border-white/10 pt-6">
+              <p class="text-2xl font-bold text-white">Three years</p>
+              <p class="text-sm text-gray-400 mt-1">building and refining HostMaid in real properties</p>
+            </div>
+          </div>
+          <a href="#demo" class="mt-8 inline-flex items-center justify-center w-full px-6 py-3 rounded-xl font-semibold text-sm bg-[#4FB5C8] text-white hover:bg-[#3da1b3] transition-all">Book a demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= What changes with HostMaid (comparison) ================= -->
+<section class="py-24 bg-[#F8FAFC]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="reveal text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">What changes with HostMaid</p>
+    <h2 class="reveal text-3xl sm:text-4xl font-bold text-[#222B45] mb-6 max-w-2xl">Your current process works, until one part of it doesn't.</h2>
+    <div class="reveal max-w-2xl text-[#505a6e] text-lg leading-relaxed space-y-2 mb-12">
+      <p>The spreadsheet knows when the clean was scheduled. The group text has some of the photos. The paper checklist says every box was ticked. Your phone is where the exceptions end up.</p>
+      <p class="text-[#222B45] font-semibold">None of it tells you what happened in the property.</p>
+    </div>
+
+    <div class="reveal rounded-2xl overflow-hidden border border-gray-100 shadow-sm bg-white">
+      <div class="grid md:grid-cols-2">
+        <div class="p-5 bg-gray-50">
+          <p class="text-xs font-semibold text-[#718096] uppercase tracking-wider">What you're running now</p>
+        </div>
+        <div class="p-5" style="background-color:#4FB5C80D;">
+          <p class="text-xs font-semibold text-[#4FB5C8] uppercase tracking-wider">With HostMaid</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 border-t border-gray-100">
+        <div class="p-5 text-sm text-[#505a6e]">Property notes spread across documents, messages and people's memories</div>
+        <div class="p-5 text-sm text-[#222B45] font-medium" style="background-color:#4FB5C80D;">One property-specific checklist, organized room by room</div>
+      </div>
+      <div class="grid md:grid-cols-2 border-t border-gray-100">
+        <div class="p-5 text-sm text-[#505a6e]">Photos requested after the clean, then buried in a message thread</div>
+        <div class="p-5 text-sm text-[#222B45] font-medium" style="background-color:#4FB5C80D;">Required photos taken in the app as the work happens</div>
+      </div>
+      <div class="grid md:grid-cols-2 border-t border-gray-100">
+        <div class="p-5 text-sm text-[#505a6e]">A cleaner marks the job complete</div>
+        <div class="p-5 text-sm text-[#222B45] font-medium" style="background-color:#4FB5C80D;">The work gets reviewed before the job closes</div>
+      </div>
+      <div class="grid md:grid-cols-2 border-t border-gray-100">
+        <div class="p-5 text-sm text-[#505a6e]">A missed item becomes another phone call</div>
+        <div class="p-5 text-sm text-[#222B45] font-medium" style="background-color:#4FB5C80D;">The issue goes back while there's still time to fix it</div>
+      </div>
+      <div class="grid md:grid-cols-2 border-t border-gray-100">
+        <div class="p-5 text-sm text-[#505a6e]">A half-finished clean lands on you</div>
+        <div class="p-5 text-sm text-[#222B45] font-medium" style="background-color:#4FB5C80D;">The remaining work goes to your certified company-approved cleaners</div>
+      </div>
+      <div class="grid md:grid-cols-2 border-t border-gray-100">
+        <div class="p-5 text-sm text-[#505a6e]">An owner or guest asks what happened and you start searching</div>
+        <div class="p-5 text-sm text-[#222B45] font-medium" style="background-color:#4FB5C80D;">Every turnover has a dated, room-by-room record</div>
+      </div>
+      <div class="grid md:grid-cols-2 border-t border-gray-100">
+        <div class="p-5 text-sm text-[#505a6e]">Cleaners, controllers and managers chasing each other by text</div>
+        <div class="p-5 text-sm text-[#222B45] font-medium" style="background-color:#4FB5C80D;">The job carries its own instructions, proof and status</div>
+      </div>
+    </div>
+
+    <p class="reveal text-xl font-bold text-[#222B45] mt-12 mb-8">Keep the people. Replace the guesswork.</p>
+
+    <div class="reveal flex flex-wrap gap-4">
+      <a href="#demo" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Book a demo</a>
+      <a href="https://dev.hostmaid.com/login" class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#222B45] font-semibold rounded-xl border border-gray-200 hover:border-gray-300 transition-all">Start a free trial</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Pricing ================= -->
+<section id="pricing" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="reveal text-center max-w-2xl mx-auto mb-12">
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">Pricing</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#222B45] mb-4">Simple, Transparent Pricing</h2>
+      <p class="text-[#505a6e] text-lg">One plan. Every part of the process, across your properties and your cleaning team.</p>
+    </div>
+
+    <div class="reveal max-w-4xl mx-auto rounded-2xl bg-[#222B45] text-white shadow-2xl overflow-hidden">
+      <div class="grid md:grid-cols-2">
+        <div class="p-10 flex flex-col justify-center">
+          <div class="mb-2">
+            <span class="text-4xl font-bold text-white">$299/month</span>
+          </div>
+          <p class="text-lg text-[#4FB5C8] font-semibold mb-8">+ $6/unit</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#demo" class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-sm bg-[#4FB5C8] text-white hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/25 transition-all">Book a demo</a>
+            <a href="https://dev.hostmaid.com/login" class="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-sm bg-white/5 text-white border border-white/20 hover:bg-white/10 transition-all">Start a free trial</a>
+          </div>
+        </div>
+        <div class="p-10" style="background-color:rgba(255,255,255,0.03);">
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-base">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-gray-300">Property-specific checklists, built room by room</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-gray-300">Required photos, selected by the app at the time of the clean</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-gray-300">Cleaner app with property notes, codes and job pay on screen</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-gray-300">Quality control step before any job closes, with certified cleaner exemptions</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-gray-300">Cleaner callback when someone leaves a property half done</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-gray-300">A dated, room-by-room record of every turnover</span>
+            </li>
+            <li class="flex items-start gap-3 text-base">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB5C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-gray-300">Access for cleaners, quality controllers, managers and owners</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="reveal text-center text-[#505a6e] max-w-2xl mx-auto mt-8">Not sure how HostMaid would fit the operation you already have? Bring us your current process. We will walk through it with you.</p>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="py-24 bg-[#F8FAFC]">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">Frequently asked questions</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-[#222B45] mb-4">Before you put another app in your cleaners' hands.</h2>
+    </div>
+
+    <div class="space-y-3" id="faq-list">
+
+      <div class="faq-item border rounded-xl transition-all duration-300 border-gray-200 bg-white hover:border-gray-300">
+        <button type="button" class="faq-question w-full flex items-center justify-between p-5 text-left">
+          <span class="text-sm font-semibold text-[#222B45] pr-4">Will my cleaners actually use it?</span>
+          <svg class="faq-icon text-[#A5A5A5] flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="px-5 pb-5 text-sm text-[#6F6F6F] leading-relaxed space-y-3">
+            <p>They use it once they see how they get paid. Every job shows what it pays before a cleaner accepts it, and the app tracks what they've earned by week and by month. Pay is set against the property rather than the hour, so a cleaner who works through it properly earns more per hour than they did before.</p>
+            <p>The record protects them too. When a client says a clean wasn't done, the photos are already there, dated, and nobody's deducting a refund from work that was done right.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border rounded-xl transition-all duration-300 border-gray-200 bg-white hover:border-gray-300">
+        <button type="button" class="faq-question w-full flex items-center justify-between p-5 text-left">
+          <span class="text-sm font-semibold text-[#222B45] pr-4">Do cleaners need a smartphone?</span>
+          <svg class="faq-icon text-[#A5A5A5] flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p class="px-5 pb-5 text-sm text-[#6F6F6F] leading-relaxed">Yes. Photos get taken inside the app while they're at the property, not uploaded from a camera roll afterward.</p>
+        </div>
+      </div>
+
+      <div class="faq-item border rounded-xl transition-all duration-300 border-gray-200 bg-white hover:border-gray-300">
+        <button type="button" class="faq-question w-full flex items-center justify-between p-5 text-left">
+          <span class="text-sm font-semibold text-[#222B45] pr-4">How much time does it add to a clean?</span>
+          <svg class="faq-icon text-[#A5A5A5] flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="px-5 pb-5 text-sm text-[#6F6F6F] leading-relaxed space-y-3">
+            <p>It adds time on the first few properties while a cleaner learns the checklist, and a few minutes per turnover after that for the photos. We won't pretend otherwise. Our own cleaners said the same thing when we rolled it out.</p>
+            <p>What you get back is the drive time, the callbacks and the recleans.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border rounded-xl transition-all duration-300 border-gray-200 bg-white hover:border-gray-300">
+        <button type="button" class="faq-question w-full flex items-center justify-between p-5 text-left">
+          <span class="text-sm font-semibold text-[#222B45] pr-4">Will my cleaners think I don't trust them?</span>
+          <svg class="faq-icon text-[#A5A5A5] flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="px-5 pb-5 text-sm text-[#6F6F6F] leading-relaxed space-y-3">
+            <p>HostMaid isn't there to catch cleaners out. Everyone misses things, including good people.</p>
+            <p>The checklist makes the standard clear before the job starts, the photos prove the work when it was done properly, and the review gives you a way to fix what was missed without a phone call.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border rounded-xl transition-all duration-300 border-gray-200 bg-white hover:border-gray-300">
+        <button type="button" class="faq-question w-full flex items-center justify-between p-5 text-left">
+          <span class="text-sm font-semibold text-[#222B45] pr-4">Do I need a quality controller?</span>
+          <svg class="faq-icon text-[#A5A5A5] flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="px-5 pb-5 text-sm text-[#6F6F6F] leading-relaxed space-y-3">
+            <p>Somebody has to go and look. Typically the quality controller drives to the property behind the cleaner, checks the work against the checklist, and handles the jobs a cleaner doesn't do: a light bulb, a filter, leaves on the back deck, something broken that needs reporting.</p>
+            <p>Once a cleaner has proved they hold the standard, you can mark them certified and their cleans stop needing the check.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item border rounded-xl transition-all duration-300 border-gray-200 bg-white hover:border-gray-300">
+        <button type="button" class="faq-question w-full flex items-center justify-between p-5 text-left">
+          <span class="text-sm font-semibold text-[#222B45] pr-4">Can I use HostMaid with an outside cleaning company?</span>
+          <svg class="faq-icon text-[#A5A5A5] flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p class="px-5 pb-5 text-sm text-[#6F6F6F] leading-relaxed">Yes. Add their cleaners and quality controllers to your account as users, and they work to your checklists, your standard, on your properties.</p>
+        </div>
+      </div>
+
+      <div class="faq-item border rounded-xl transition-all duration-300 border-gray-200 bg-white hover:border-gray-300">
+        <button type="button" class="faq-question w-full flex items-center justify-between p-5 text-left">
+          <span class="text-sm font-semibold text-[#222B45] pr-4">Can my owners or clients see what happened in a property?</span>
+          <svg class="faq-icon text-[#A5A5A5] flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p class="px-5 pb-5 text-sm text-[#6F6F6F] leading-relaxed">Yes. Owners get their own access, so instead of forwarding photos when somebody asks, you point them at the property and they can see the record for themselves.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= Closing CTA ================= -->
+<section id="trial" class="py-24 bg-[#0F172A] overflow-hidden">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="reveal text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-3">Before the next check-in</p>
+    <h2 class="reveal text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">The guest should never be the first person to find the problem.</h2>
+    <p class="reveal text-lg text-gray-300 leading-relaxed mb-4">Put your standard into every room, require the proof, and check the work while there's still time to fix it.</p>
+    <p class="reveal text-lg text-gray-300 leading-relaxed mb-10">Run more properties without putting every exception back on your management team.</p>
+    <div class="reveal flex flex-wrap gap-4 mb-16">
+      <a href="#demo-close" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Book a demo</a>
+      <a href="#pricing" class="inline-flex items-center gap-2 px-7 py-3.5 bg-white/5 text-white font-semibold rounded-xl border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-white/20 transition-all">Start a free trial</a>
+    </div>
+
+    <div id="demo-close" class="reveal bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 mb-12">
+      <h3 class="text-2xl font-bold text-[#222B45] mb-2">See HostMaid with your operation</h3>
+      <p class="text-[#505a6e] mb-6">Choose a time below. We'll look at the properties, the cleaning team and the process you run today, then show you where HostMaid fits.</p>
+      <div class="rounded-2xl overflow-hidden">
+        <!-- Calendly inline widget begin -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/ben-capuletcleaning/30min" style="min-width:320px;height:700px;"></div>
+        <!-- Calendly inline widget end -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Footer ================= -->
+<footer class="bg-[#0F172A] text-gray-400 border-t border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src="assets/light/images/hostmaid.svg" alt="HostMaid" class="h-7 brightness-0 invert">
+        <span class="text-sm text-gray-400">Short-term rental turnover management software</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="#how-it-works" class="text-sm hover:text-[#4FB5C8] transition-colors">How it works</a>
+        <a href="#who-its-for" class="text-sm hover:text-[#4FB5C8] transition-colors">Who it's for</a>
+        <a href="#pricing" class="text-sm hover:text-[#4FB5C8] transition-colors">Pricing</a>
+        <a href="#faq" class="text-sm hover:text-[#4FB5C8] transition-colors">FAQ</a>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+      <p class="text-sm"><span id="footer-year">2026</span> HostMaid. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= Scripts ================= -->
+<script>
+  // Prefix copyright year with © since the HTML entity is easier to edit as text
+  document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
+
+  // Navbar background on scroll
+  const navbar = document.getElementById('navbar');
+  function updateNavbar() {
+    if (window.scrollY > 20) {
+      navbar.className = 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0F172A]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-2';
+    } else {
+      navbar.className = 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent border-b border-transparent py-4';
+    }
+  }
+  window.addEventListener('scroll', updateNavbar);
+  updateNavbar();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconX = document.getElementById('icon-x');
+  let menuOpen = false;
+  menuBtn.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('hidden', !menuOpen);
+    iconMenu.classList.toggle('hidden', menuOpen);
+    iconX.classList.toggle('hidden', !menuOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.classList.add('hidden');
+      iconMenu.classList.remove('hidden');
+      iconX.classList.add('hidden');
+    });
+  });
+
+  // Hero fade/slide-in on load
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero-fade').forEach((el) => el.classList.add('hero-fade-visible'));
+    }, 100);
+  });
+
+  // IntersectionObserver: trigger reveal animations once elements enter the viewport
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+  // FAQ accordion (single-open behavior, matches original)
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
+    question.addEventListener('click', () => {
+      const isOpen = answer.classList.contains('faq-open');
+      document.querySelectorAll('.faq-answer').forEach((a) => a.classList.remove('faq-open'));
+      document.querySelectorAll('.faq-icon').forEach((i) => i.classList.remove('faq-open'));
+      document.querySelectorAll('.faq-item').forEach((i) => {
+        i.classList.remove('border-[#4FB5C8]/30', 'bg-[#4FB5C8]/5', 'shadow-sm');
+        i.classList.add('border-gray-200');
+      });
+      if (!isOpen) {
+        answer.classList.add('faq-open');
+        icon.classList.add('faq-open');
+        item.classList.remove('border-gray-200');
+        item.classList.add('border-[#4FB5C8]/30', 'bg-[#4FB5C8]/5', 'shadow-sm');
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+</body>
+</html>
