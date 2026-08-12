@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MM2MGMRR');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HostMaid - Your Onboarding Emails</title>
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Fallback font stack in case Google Fonts fails to load offline */
+  body {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Simple fade/slide-in used on scroll-into-view (same behavior as the homepage) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .reveal.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* A few small utilities the compiled Tailwind build doesn't include */
+  .max-w-4xl { max-width: 56rem; }
+  .pt-40 { padding-top: 10rem; }
+  .pb-28 { padding-bottom: 7rem; }
+</style>
+</head>
+<body class="bg-white">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM2MGMRR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- ================= Navbar ================= -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#0F172A]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-2">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="assets/light/images/hostmaid.svg" alt="HostMaid" class="h-8 brightness-0 invert transition-all duration-300">
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html#how-it-works" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">How it works</a>
+        <a href="index.html#who-its-for" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">Who it's for</a>
+        <a href="index.html#pricing" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">Pricing</a>
+        <a href="index.html#faq" class="text-sm font-medium text-white/90 hover:text-[#4FB5C8] transition-colors">FAQ</a>
+      </div>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://app.hostmaid.com/login" target="_blank" rel="noopener" class="px-5 py-2 text-sm font-semibold text-white hover:text-[#4FB5C8] transition-colors">Start a free trial</a>
+        <a href="index.html#demo" class="px-5 py-2 bg-[#4FB5C8] text-white text-sm font-semibold rounded-lg hover:bg-[#3da1b3] shadow-md hover:shadow-lg transition-all">Book a demo</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-white" aria-label="Toggle menu">
+        <!-- Menu icon (shown when closed) -->
+        <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <!-- X icon (shown when open) -->
+        <svg id="icon-x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden bg-[#0F172A] border-t border-white/10 shadow-xl absolute top-full left-0 right-0 hidden">
+    <div class="px-4 py-4 space-y-3">
+      <a href="index.html#how-it-works" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">How it works</a>
+      <a href="index.html#who-its-for" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">Who it's for</a>
+      <a href="index.html#pricing" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">Pricing</a>
+      <a href="index.html#faq" class="block text-sm font-medium text-white/90 hover:text-[#4FB5C8] py-2">FAQ</a>
+      <div class="pt-3 border-t border-white/10 space-y-2">
+        <a href="https://app.hostmaid.com/login" target="_blank" rel="noopener" class="block text-center px-5 py-2.5 text-sm font-semibold text-white border border-white/20 rounded-lg hover:bg-white/5">Start a free trial</a>
+        <a href="index.html#demo" class="block text-center px-5 py-2.5 bg-[#4FB5C8] text-white text-sm font-semibold rounded-lg">Book a demo</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= Hero ================= -->
+<header class="relative pt-40 pb-28 overflow-hidden" style="background-color:#0F172A;">
+  <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-[#4FB5C8]/10 rounded-full blur-3xl -z-10"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#4FB5C8]/10 rounded-full blur-3xl -z-10"></div>
+  <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p class="reveal text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider mb-4">You skipped ahead</p>
+    <h1 class="reveal text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">Good. Let's get you moving <span class="text-[#4FB5C8]">faster</span>.</h1>
+    <p class="reveal text-lg text-gray-300 leading-relaxed">Everything you need to get your first property, your team, and your first turnover up and running, right now.</p>
+  </div>
+</header>
+
+<!-- ================= Email list ================= -->
+
+<!-- Email 2 -->
+<section class="reveal py-20 bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-[#4FB5C8]" style="background-color:#4FB5C81a;">1</span>
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider">Property setup</p>
+    </div>
+    <h2 class="text-2xl font-bold text-[#222B45] mb-5">See why HostMaid is different. Start with one property</h2>
+    <div class="space-y-4 text-lg text-[#505a6e] leading-relaxed">
+      <p>Every property has that one detail.</p>
+      <p>The thermostat setting. The extra linens. The kayaks that always need to go back in the garage.</p>
+      <p>The thing you have typed into a text message more times than you can count.</p>
+      <p>Today, put it into HostMaid.</p>
+      <p>Start with the property you know best. Add the owner, address, house notes, and access details. If you need it, HostMaid gives you a starter checklist organized room by room, so you can review and adapt it instead of beginning from scratch.</p>
+      <p>Then add one instruction that always seems to get missed. If you want proof that it happened, require a photo.</p>
+      <p>Once it is in HostMaid, it is no longer something you have to remember to remind someone about. It is part of the job.</p>
+    </div>
+    <div class="mt-10">
+      <a href="https://app.hostmaid.com/properties" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Complete your first property</a>
+    </div>
+  </div>
+</section>
+
+<!-- Email 3 -->
+<section class="reveal py-20" style="background-color:#F8FAFC;">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-[#4FB5C8]" style="background-color:#4FB5C81a;">2</span>
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider">Cleaner callback</p>
+    </div>
+    <h2 class="text-2xl font-bold text-[#222B45] mb-5">A cleaner can't finish. Here's what HostMaid does next</h2>
+    <div class="space-y-4 text-lg text-[#505a6e] leading-relaxed">
+      <p>A cleaner cannot finish a turnover.</p>
+      <p>The guest is still arriving. The property still needs to be ready.</p>
+      <p>And suddenly, you are calling and texting everyone you know, hoping someone can step in.</p>
+      <p>HostMaid changes what happens next.</p>
+      <p>HostMaid puts the unfinished work in front of certified cleaners who can pick it up and get the property finished.</p>
+      <p>Instead of managing the emergency one phone call at a time, you have a process for getting the work covered.</p>
+      <p>That is cleaner callback.</p>
+      <p>And it is one of the biggest problems we built HostMaid to solve.</p>
+      <p>The first step is getting a cleaner into your account.</p>
+    </div>
+    <div class="mt-10">
+      <a href="https://app.hostmaid.com/staff" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Invite a cleaner</a>
+    </div>
+  </div>
+</section>
+
+<!-- Email 4 -->
+<section class="reveal py-20 bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-[#4FB5C8]" style="background-color:#4FB5C81a;">3</span>
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider">Team access</p>
+    </div>
+    <h2 class="text-2xl font-bold text-[#222B45] mb-5">Bring the right people into HostMaid</h2>
+    <div class="space-y-4 text-lg text-[#505a6e] leading-relaxed">
+      <p>Looking around HostMaid by yourself shows you what the product does.</p>
+      <p>Giving the right people access shows you what it can change.</p>
+      <p>Your <strong class="text-[#222B45] font-semibold">cleaners</strong> see what each job pays before accepting it, while HostMaid tracks their completed work and earnings by week and month. The house notes, access details, room-by-room checklist, and photo requests are inside the same job.</p>
+      <p>If you use a <strong class="text-[#222B45] font-semibold">quality controller</strong>, they review the checklist and photos. Rejected work stays open until it is corrected or completed through callback.</p>
+      <p>If you give the <strong class="text-[#222B45] font-semibold">homeowner</strong> access, they see the status and final proof without calling you for an update.</p>
+      <p>And you can see the whole turnover moving without chasing everyone involved.</p>
+    </div>
+    <div class="mt-10">
+      <a href="https://app.hostmaid.com/users" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Invite users</a>
+    </div>
+  </div>
+</section>
+
+<!-- Email 5 -->
+<section class="reveal py-20" style="background-color:#F8FAFC;">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-[#4FB5C8]" style="background-color:#4FB5C81a;">4</span>
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider">Your first turnover</p>
+    </div>
+    <h2 class="text-2xl font-bold text-[#222B45] mb-5">Run your next turnover differently with HostMaid</h2>
+    <div class="space-y-4 text-lg text-[#505a6e] leading-relaxed">
+      <p>You have added the property and told HostMaid what needs to happen there.</p>
+      <p>Now put that setup to work.</p>
+      <p>Create your next turnover, choose the property and date, assign the cleaner, and add a quality controller if you use one.</p>
+      <p>Mark anything that must always be backed up with a photo.</p>
+      <p>When your cleaner opens the job, everything they need is already there. During the job, HostMaid randomly selects additional checklist items for photo proof. The cleaner cannot submit a room until its checklist and requested photos are complete.</p>
+      <p>You do not need to remember when to send the access code, repeat the house notes, or explain how each room should look.</p>
+      <p>The process carries those details for you.</p>
+    </div>
+    <div class="mt-10">
+      <a href="https://app.hostmaid.com/bookings" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Create your first turnover</a>
+    </div>
+  </div>
+</section>
+
+<!-- Email 6 -->
+<section class="reveal py-20 bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-[#4FB5C8]" style="background-color:#4FB5C81a;">5</span>
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider">Quality control</p>
+    </div>
+    <h2 class="text-2xl font-bold text-[#222B45] mb-5">Know the property is ready with HostMaid before the guest arrives</h2>
+    <div class="space-y-4 text-lg text-[#505a6e] leading-relaxed">
+      <p>There is a moment before every guest arrives when you want one simple answer.</p>
+      <p class="text-[#222B45] font-semibold">Is the property ready?</p>
+      <p>You should not have to start calling and texting people to find out.</p>
+      <p>HostMaid only lets the cleaner submit each room once its checklist and requested photo proof are complete. If you use quality control, the turnover stays open until the work is approved or anything outstanding is resolved through callback.</p>
+      <p>Completed now means something. The timings, photos, and final record show how the property reached that point.</p>
+      <p>You are not hoping the property is ready.</p>
+      <p>You know it is.</p>
+      <p>Then you can move on to the next property, the next client, or the rest of your day.</p>
+    </div>
+    <div class="mt-10">
+      <a href="https://app.hostmaid.com/bookings" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Complete your first turnover</a>
+    </div>
+  </div>
+</section>
+
+<!-- Email 7 -->
+<section class="reveal py-20" style="background-color:#F8FAFC;">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-[#4FB5C8]" style="background-color:#4FB5C81a;">6</span>
+      <p class="text-sm font-semibold text-[#4FB5C8] uppercase tracking-wider">Trial ending soon</p>
+    </div>
+    <h2 class="text-2xl font-bold text-[#222B45] mb-5">Two days left in your HostMaid trial</h2>
+    <div class="space-y-4 text-lg text-[#505a6e] leading-relaxed">
+      <p>Your HostMaid trial ends in 48 hours.</p>
+      <p>So, how do you want your next turnover to run after that?</p>
+      <p><strong class="text-[#222B45] font-semibold">Without HostMaid:</strong> House notes in one text message, access codes in another, cleaners calling with questions, photos scattered across different chats, and you trying to work out whether the property is ready.</p>
+      <p><strong class="text-[#222B45] font-semibold">With HostMaid:</strong> The turnover stays open until the required checklist and photo proof are complete. Quality control and callback handle anything that is missed, and "Completed" means the whole process is finished.</p>
+      <p>When your trial ends, you will not be able to create new turnovers until you subscribe.</p>
+      <p>Keep the simpler way of working in place for your next clean.</p>
+    </div>
+    <div class="mt-10">
+      <a href="https://app.hostmaid.com/login" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#4FB5C8] text-white font-semibold rounded-xl hover:bg-[#3da1b3] shadow-lg shadow-[#4FB5C8]/20 hover:shadow-xl transition-all">Subscribe to HostMaid</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Closing CTA ================= -->
+<section class="reveal py-20 overflow-hidden" style="background-color:#0F172A;">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-2xl font-bold text-white mb-4">Prefer to talk it through?</h2>
+    <p class="text-lg text-gray-300 leading-relaxed mb-10">Book a demo and we'll walk you through your setup.</p>
+    <div class="rounded-2xl overflow-hidden shadow-2xl">
+      <!-- Calendly inline widget begin -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/ben-capuletcleaning/30min" style="min-width:320px;height:700px;"></div>
+      <!-- Calendly inline widget end -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= Footer ================= -->
+<footer class="bg-[#0F172A] text-gray-400 border-t border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src="assets/light/images/hostmaid.svg" alt="HostMaid" class="h-7 brightness-0 invert">
+        <span class="text-sm text-gray-400">Short-term rental turnover management software</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="index.html#how-it-works" class="text-sm hover:text-[#4FB5C8] transition-colors">How it works</a>
+        <a href="index.html#who-its-for" class="text-sm hover:text-[#4FB5C8] transition-colors">Who it's for</a>
+        <a href="index.html#pricing" class="text-sm hover:text-[#4FB5C8] transition-colors">Pricing</a>
+        <a href="index.html#faq" class="text-sm hover:text-[#4FB5C8] transition-colors">FAQ</a>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+      <p class="text-sm"><span id="footer-year">2026</span> HostMaid. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= Scripts ================= -->
+<script>
+  // Prefix copyright year with © since the HTML entity is easier to edit as text
+  document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconX = document.getElementById('icon-x');
+  let menuOpen = false;
+  menuBtn.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('hidden', !menuOpen);
+    iconMenu.classList.toggle('hidden', menuOpen);
+    iconX.classList.toggle('hidden', !menuOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.classList.add('hidden');
+      iconMenu.classList.remove('hidden');
+      iconX.classList.add('hidden');
+    });
+  });
+
+  // IntersectionObserver: trigger reveal animations once elements enter the viewport
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+</script>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+</body>
+</html>
